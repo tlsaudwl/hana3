@@ -1,44 +1,39 @@
-/* body::before{
-    content: 'BBB';
-} */
+body {
+  /* margin-top: 5rem; */
+}
 
 @media (max-width: 576px) {
-  body::before {
+  body::after {
     content: "XS";
   }
 }
 
-/* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  body::before {
+  body::after {
     content: "SM";
   }
 }
 
-/* // Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  body::before {
+  body::after {
     content: "MD";
   }
 }
 
-/* // Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  body::before {
+  body::after {
     content: "LG";
   }
 }
 
-/* // X-Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  body::before {
+  body::after {
     content: "XL";
   }
 }
 
-/* // XX-Large devices (larger desktops, 1400px and up) */
 @media (min-width: 1400px) {
-  body::before {
+  body::after {
     content: "XXL";
   }
 }
@@ -48,4 +43,5 @@
   border: 1px solid red;
   min-height: 2rem;
   font-size: 2rem;
+  width: 100%;
 }
