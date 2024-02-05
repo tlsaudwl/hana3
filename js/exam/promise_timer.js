@@ -34,18 +34,37 @@
 //     console.error(error);
 //   });
 
-// const depthTime = (depth) =>
-//   new Promise((resolve, reject) => {
-//     setTimeout(() => console.log("depth" + depth, new Date()), depth * 1000);
-//     resolve(1);
-//     console.log("******************");
-//   });
+const depthTimer = depth =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('depth' + depth, new Date());
+      if (depth >= 3) reject(new Error('Already 3-depth!!'));
+      resolve(depth + 1);
+    }, depth * 1000);
+  });
 
+// 1) then 방식
 // depthTimer(1)
 //   .then(depthTimer)
 //   .then(depthTimer)
-//   .catch((err) => console.error(err));
+//   .catch(err => console.error(err));
 
-// console.log("START!", new Date());
+// 2) await 방식
+// try {
+//   const r1 = await depthTimer(1);
+//   const r2 = await depthTimer(2);
+//   const r3 = await depthTimer(3);
+// } catch (err) {
+//   console.error(err);
+// }
 
-getposts(1);
+// 3) for-await-of
+console.log('START!', new Date());
+const depthTimers = [1, 2, 3].map(async depth => depthTimer(depth));
+try {
+  for await (const dt of depthTimers) {
+    dt;
+  }
+} catch (err) {
+  console.error(err);
+}
