@@ -1,12 +1,15 @@
-// primitive (call-by-value) vs. objective (call-by-reference) -> 면접 질문으로 잘 나옴
-const userName = 'Hong'; // string (primitive)
-let age; // declare + define -> 이 정의는 메모리가 할당되었다는 뜻 (undefined라는 값이 저장됨)
-age=33;
-console.log("🚀 ~ age:", age)
+// primitive(call-by-value) vs object(call-by-reference)
+const userName = "Hong"; // string (primitive)
+let age; // declare + define  (undefined)
+console.log("🚀  age:", age);
+age = 33;
 console.log(`Hello, ${userName}!`);
 
+// console.log(zz);
+// ReferenceError: zz is not defined
+// let zz = <NotYetInitialized>; // TDZ ==> 무력화!(Freshness)
 
-zz=9;
+zz = 9;
+let zz;
 console.log(zz);
-zz=10;
-console.log(globalThis['zz']);
+console.log(globalThis["zz"]);

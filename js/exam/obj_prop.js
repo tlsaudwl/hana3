@@ -1,4 +1,4 @@
-// exam1
+// exam 1. for-in 으로 key, value출력
 function ex1() {
   const arr = [100, 200, 300, 400, 500, 600, 700];
 
@@ -37,7 +37,6 @@ function ex1() {
 }
 // ex1();
 
-// exam2
 const orgArray = [
   ["A", 10, 20],
   ["B", 30, 40],
@@ -62,7 +61,6 @@ console.log("🚀  newObj:", newObj);
 const newArr = makeArrayFromObject(newObj);
 console.log("🚀  newArr:", newArr);
 
-// exam3
 function ex3() {
   const kim = { nid: 3, nm: "Hong", addr: "Pusan" };
   function copyObject(obj) {
