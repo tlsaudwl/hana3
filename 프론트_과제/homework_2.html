@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>homework_2</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      text-align: right;
+      padding: 8px;
+      border: 1px solid lightslategray;
+    }
+    th {
+      text-align: center;
+      background-color: lightgrey;
+    }
+    td:nth-child(2) {
+      text-align: left;
+    }
+    .entire-pay {
+      margin-top: 20px;
+    }
+    </style>
+</head>
+
+<body>
+  <table id="myTable">
+    <tr>
+      <th>번호</th>
+      <th>이름</th>
+      <th>근무시간</th>
+      <th>시간당급여액</th>
+      <th>기본액</th>
+      <th>초과수당</th>
+      <th>합계</th>
+      <th>세액</th>
+      <th>실지불액</th>
+    </tr>
+  </table>
+
+  <div id="entirePay" class="entire-pay"></div>
+
+  <script>
+    var data = {
+      "base_time": 20,
+      "list": [
+        {"id": 1, "username": "홍길동", "work_time": 40, "per_pay": 10000},
+        {"id": 2, "username": "송민헌", "work_time": 20, "per_pay": 20000},
+        {"id": 3, "username": "장길산", "work_time": 30, "per_pay": 30000},
+        {"id": 4, "username": "임꺽정", "work_time": 10, "per_pay": 40000},
+        {"id": 5, "username": "강민구", "work_time": 30, "per_pay": 10000}
+      ]
+    };
+
+    var table = document.getElementById("myTable");
+
+    // 기준 시간 및 초과 수당 비율
+    var baseTime = data.base_time;
+    var overtimeRate = 0.5;
+
+    var entirePay = 0;
+
+    for (var i = 0; i < data.list.length; i++) {
+      var employee = data.list[i];
+      var row = table.insertRow(-1); 
+
+      row.insertCell(0).innerHTML = employee.id;
+      row.insertCell(1).innerHTML = employee.username;
+      row.insertCell(2).innerHTML = employee.work_time;
+      row.insertCell(3).innerHTML = addCommas(employee.per_pay);
+
+      // 기본액 계산
+      var basePay = calculateBasePay(employee.work_time, employee.per_pay);
+      row.insertCell(4).innerHTML = addCommas(basePay);
+
+      // 초과수당 계산
+      var overtimePay = calculateOvertimePay(employee.work_time, employee.per_pay, baseTime, overtimeRate);
+      row.insertCell(5).innerHTML = addCommas(overtimePay);
+
+      // 합계 계산
+      var totalPay = basePay + overtimePay;
+      row.insertCell(6).innerHTML = addCommas(totalPay);
+
+      // 세액 계산
+      var tax = totalPay * 0.033;
+      row.insertCell(7).innerHTML = addCommas(tax);
+
+      // 실지불액 계산
+      var realPay = totalPay - tax;
+      row.insertCell(8).innerHTML = addCommas(realPay);
+
+      // 총지불액 계산
+      entirePay += realPay;
+    }
+
+    
+    var entirePayDiv = document.getElementById("entirePay");
+    entirePayDiv.textContent = "총지불액: " + addCommas(entirePay);
+
+    // 세자리마다 쉼표 추가 함수
+    function addCommas(number) {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // 기본액 계산 함수
+    function calculateBasePay(workTime, perPay) {
+      return workTime * perPay;
+    }
+
+    // 초과수당 계산 함수
+    function calculateOvertimePay(workTime, perPay, baseTime, overtimeRate) {
+      var overtimeHours = Math.max(0, workTime - baseTime);
+      return overtimeHours > 0 ? overtimeHours * perPay * overtimeRate : 0;
+    }
+  </script>
+</body>
+</html>
+

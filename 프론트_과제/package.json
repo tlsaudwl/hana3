@@ -1,0 +1,12 @@
+{
+  "name": "front_work",
+  "version": "0.0.1",
+  "description": "frontend_homework",
+  "type": "module",
+  "main": "homework_3.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tlsaudwl",
+  "license": "MIT"
+}
