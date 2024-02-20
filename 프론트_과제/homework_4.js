@@ -1,69 +1,72 @@
-import assert from 'assert'; // ESM 
+import assert from "assert"; // ESM
 // ⇒ const assert = require('assert'); // CJS
 
 class Collection {
-    #arr;
+  #arr;
 
-    constructor(...args) {
-        this.#arr = Array.isArray(args[0]) ? args[0] : args;
-    }
+  constructor(...args) {
+    this.#arr = Array.isArray(args[0]) ? args[0] : args;
+  }
 
-    get _arr() {
-        return this.#arr;
-    }
+  get _arr() {
+    return this.#arr;
+  }
 
-    push(value) {
-        this.#arr.push(value);
-        return this;
-    }
+  push(value) {
+    this.#arr.push(value);
+    return this;
+  }
 
-    get peek() {
-        return this.constructor.name === "Stack" ? this.#arr.at(-1) : this.#arr.at(0);
-    }
+  // 여러번 사용하기 때문에 쓰는게 좋음
+  // isStack(){
+  //     return this.constructor.name === "Stack";
+  // }
 
-    get poll() {
-        return this.constructor.name === "Stack" ? this.#arr.pop() : this._arr.shift();
-    }
+  get peek() {
+    return this.constructor.name === "Stack" ? this.#arr.at(-1) : this.#arr.at(0);
+  }
 
-    clear() {
-        this.#arr = [];
-    }
+  get poll() {
+    return this.constructor.name === "Stack" ? this.#arr.pop() : this._arr.shift();
+  }
 
-    toArray() {
-        return [...this.#arr];
-    }
+  clear() {
+    this.#arr = [];
+  }
 
-    remove() {
-        return this.constructor.name === "Stack" ? this._arr.pop() : this.poll();
-    }
+  toArray() {
+    return [...this.#arr];
+  }
 
-    get isEmpty() {
-        return !this.#arr.length;
-    }
+  remove() {
+    return this.constructor.name === "Stack" ? this._arr.pop() : this.poll();
+  }
 
-    get size() {
-        return this.#arr.length;
-    }
+  get isEmpty() {
+    return !this.#arr.length;
+  }
+
+  get size() {
+    return this.#arr.length;
+  }
 }
 
 class Stack extends Collection {
-    pop() {
-        return this._arr.pop();
-    }
+  pop() {
+    return this._arr.pop();
+  }
 }
 
 class Queue extends Collection {
-    enqueue(value) {
-        this.push(value);
-        return this;
-    }
+  enqueue(value) {
+    this.push(value);
+    return this;
+  }
 
-    dequeue() {
-        return this._arr.shift();
-    }
+  dequeue() {
+    return this._arr.shift();
+  }
 }
-
-
 
 // 아래 코드가 통과되도록 Collection 클래스의 method를 작성하시오!
 const stack = new Stack();

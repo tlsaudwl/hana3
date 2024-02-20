@@ -10,8 +10,6 @@ export const Login = ({ login }: Props) => {
   // console.log('🚀 ~ idRef:', idRef);
   const nameRef = useRef<HTMLInputElement | null>(null);
   // const [name, setName] = useState('');
-  const itemRef = useRef<HTMLInputElement | null>(null);
-  const priceRef = useRef<HTMLInputElement | null>(null);
 
   const makeLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // submit 기본 기능을 무력화!
@@ -47,11 +45,6 @@ export const Login = ({ login }: Props) => {
           <input type='text' ref={nameRef} />
         </div>
         <button type='submit'>Sign-in</button>
-      </form>
-      <form>
-        <input type='text' ref={itemRef} />
-        <input type='text' ref={priceRef} />
-        <button type='submit'>Add</button>
       </form>
     </>
   );

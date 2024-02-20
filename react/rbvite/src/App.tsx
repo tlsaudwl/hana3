@@ -45,6 +45,25 @@ function App() {
     setSession({ ...session, loginUser: null });
   };
 
+  // add(id=0) or modify(id!=0) item
+  const saveItem = ({ id, name, price }: Cart) => {
+    const { cart } = session;
+    const foundItem = id !== 0 && cart.find((item) => item.id === id);
+    if (!foundItem) {
+      id = Math.max(...session.cart.map((item) => item.id), 0) + 1;
+      cart.push({ id, name, price });
+    } else {
+      foundItem.name = name;
+      foundItem.price = price;
+    }
+
+    setSession({
+      ...session,
+      // cart,
+      // cart: [...cart],
+    });
+  };
+
   const removeItem = (itemId: number) => {
     console.log('🚀  itemId:', itemId);
     setSession({
@@ -70,6 +89,7 @@ function App() {
         login={login}
         logout={logout}
         removeItem={removeItem}
+        saveItem={saveItem}
       />
       <Hello
         name={session.loginUser?.name || 'Guest'}
