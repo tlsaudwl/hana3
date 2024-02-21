@@ -54,6 +54,9 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+button.active {
+  border: 1px solid skyblue;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -72,10 +75,10 @@ button:focus-visible {
   cursor: pointer;
 }
 
-ul.un-list{
-  list-style:none;
+ul.un-list {
+  list-style: none;
 }
 
-.active{
-  border
+.active {
+  border: 1px solid skyblue;
 }
