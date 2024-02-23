@@ -33,12 +33,6 @@ export default function Sample() {
           onChange={(e) => setAge(+e.currentTarget.value)}
         />
         <select onChange={(e) => setAddress(e.currentTarget.value)}>
-          {/* <option value='서울'>서울</option>
-          <option value='부산'>부산</option>
-          <option value='대구'>대구</option>
-          <option value='대전'>대전</option>
-          <option value='창원'>창원</option>
-          <option value='인천'>인천</option> */}
           {CITIES.map((item) => (
             <option key={item} value={item}>
               {item}

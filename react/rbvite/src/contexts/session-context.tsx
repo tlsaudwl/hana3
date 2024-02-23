@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 import {
   ReactNode,
   RefObject,
   createContext,
   useContext,
+  useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { ItemHandler } from '../components/My';
@@ -14,17 +17,10 @@ type SessionContextProp = {
   logout: () => void;
   saveItem: ({ id, name, price }: Cart) => void;
   removeItem: (itemId: number) => void;
+  totalPrice: number;
 };
 
-const SampleSession: Session = {
-  loginUser: null,
-  // loginUser: { id: 1, name: 'Hong' },
-  cart: [
-    { id: 100, name: '라면', price: 3000 },
-    { id: 101, name: '컵라면', price: 2000 },
-    { id: 200, name: '파', price: 5000 },
-  ],
-};
+// @move to public/data/sample.json!!
 
 const SessionContext = createContext<SessionContextProp>({
   session: { loginUser: null, cart: [] },
@@ -32,6 +28,7 @@ const SessionContext = createContext<SessionContextProp>({
   logout: () => {},
   saveItem: () => {},
   removeItem: () => {},
+  totalPrice: 0,
 });
 
 type ProviderProps = {
@@ -40,7 +37,15 @@ type ProviderProps = {
 };
 
 export const SessionProvider = ({ children, myHandlerRef }: ProviderProps) => {
-  const [session, setSession] = useState<Session>(SampleSession);
+  const [session, setSession] = useState<Session>({
+    loginUser: null,
+    cart: [],
+  });
+
+  const totalPrice = useMemo(
+    () => session.cart.reduce((sum, item) => sum + item.price, 0),
+    [session.cart]
+  );
 
   const login = (id: number, name: string) => {
     const loginNoti = myHandlerRef?.current?.loginHandler.noti || alert;
@@ -63,6 +68,7 @@ export const SessionProvider = ({ children, myHandlerRef }: ProviderProps) => {
 
     setSession({ ...session, loginUser: { id, name } });
   };
+
   const logout = () => {
     // setSession({ cart: [...session.cart], loginUser: null });
     // session.loginUser = null;
@@ -81,10 +87,11 @@ export const SessionProvider = ({ children, myHandlerRef }: ProviderProps) => {
       foundItem.price = price;
     }
 
+    console.log('🚀  session:', session);
     setSession({
       ...session,
       // cart,
-      // cart: [...cart],
+      cart: [...cart],
     });
   };
 
@@ -100,9 +107,26 @@ export const SessionProvider = ({ children, myHandlerRef }: ProviderProps) => {
     // session.cart = session.cart.filter((item) => item.id !== itemId);
   };
 
+  useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    (async function () {
+      const res = await fetch('/data/sample.json', {
+        signal,
+      });
+      const data = (await res.json()) as Session;
+      setSession(data);
+    })();
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
   return (
     <SessionContext.Provider
-      value={{ session, login, logout, saveItem, removeItem }}
+      value={{ session, login, logout, saveItem, removeItem, totalPrice }}
     >
       {children}
     </SessionContext.Provider>
