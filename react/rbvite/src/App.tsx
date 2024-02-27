@@ -11,6 +11,9 @@ import { NotFound } from './NotFound';
 import { Home } from './components/Home';
 import Sample from './components/Sample';
 import DeferTrans from './components/DeferTrans';
+import { PostLayout } from './components/PostLayout';
+import { PostDetail } from './components/PostDetail';
+import { ItemLayout } from './components/ItemLayout';
 // import DeferTrans from './components/DeferTrans';
 // import Effect from './components/Effect';
 
@@ -29,7 +32,14 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login ref={loginHandlerRef} />} />
           <Route path='/my' element={<My ref={myHandlerRef} />} />
-          <Route path='/posts' element={<Posts />} />
+          <Route path='/posts' element={<PostLayout />}>
+            <Route index element={<Posts />} />
+            <Route path=':id' element={<PostDetail />} />
+          </Route>
+          <Route path='items' element={<ItemLayout />}>
+            <Route index element={<Items />} />
+            <Route path=':id' element={<Item />} />
+          </Route>
           {/* <Route path='/items' element={<Items />} />
         <Route path='/items/:id' element={<Item />} /> */}
           <Route path='/hello' element={<Hello />} />
