@@ -38,6 +38,12 @@ export const Nav = () => (
         </NavLink>
       </li>
       <li>
+        <NavLink to='/v1/items'>ItemsV1</NavLink>
+      </li>
+      <li>
+        <NavLink to='/v2/items'>ItemsV2</NavLink>
+      </li>
+      <li>
         <NavLink
           to='/hello'
           className={({ isActive, isPending, isTransitioning }) =>

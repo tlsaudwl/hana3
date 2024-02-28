@@ -7,27 +7,26 @@ export const ItemLayout = () => {
   const {
     session: { cart },
   } = useSession();
-  const [currItem, setCurrItem] = useState<Cart>(null);
+
+  const [currItem, setCurrItem] = useState<Cart | null>(null);
   return (
     <>
-      <div>
-        <div>
-          <ul>
-            {cart.map((item) => (
-              <li key={item.id}>
-                <button
-                  onClick={() => {
-                    setCurrItem(item);
-                    navigate(`/v1/items`);
-                  }}
-                >
-                  {item.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
+      <div className='flex flex-row'>
+        <ul className='basis-1/2'>
+          {cart.map((item) => (
+            <li key={item.id}>
+              <button
+                onClick={() => {
+                  setCurrItem(item);
+                  navigate(`/v1/items/${item.id}`);
+                }}
+              >
+                {item.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className='basis-1/2 border border-green-400 rounded-md'>
           <Outlet context={{ item: currItem }} />
         </div>
       </div>
