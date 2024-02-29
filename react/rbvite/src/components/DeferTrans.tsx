@@ -1,7 +1,7 @@
 import {
   ChangeEvent,
   //   useDeferredValue,
-  useEffect,
+  // useEffect,
   useState,
   useTransition,
 } from 'react';
@@ -12,18 +12,18 @@ type List = {
   value: string;
 };
 
-const useDebounce = (
-  cb: () => void,
-  delay: number,
-  dependencies: unknown[] = []
-) => {
-  useEffect(() => {
-    const timer = setTimeout(cb, delay);
+// const useDebounce = (
+//   cb: () => void,
+//   delay: number,
+//   dependencies: unknown[] = []
+// ) => {
+//   useEffect(() => {
+//     const timer = setTimeout(cb, delay);
 
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies);
-};
+//     return () => clearTimeout(timer);
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, dependencies);
+// };
 
 export default function DeferTrans() {
   const [searchStr, setSearchStr] = useState('');
