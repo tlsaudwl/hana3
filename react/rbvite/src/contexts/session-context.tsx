@@ -128,8 +128,15 @@ export const SessionProvider = ({
   // });
   const [session, dispatch] = useReducer(reducer, DefaultSession);
 
+  // const totalPrice = useMemo(
+  //   () => session.cart.reduce((sum, item) => sum + item.price, 0),
+  //   [session.cart]
+  // );
   const totalPrice = useMemo(
-    () => session.cart.reduce((sum, item) => sum + item.price, 0),
+    () =>
+      session.cart
+        ? session.cart.reduce((sum, item) => sum + item.price, 0)
+        : 0,
     [session.cart]
   );
 
