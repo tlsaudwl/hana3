@@ -32,3 +32,11 @@ body {
     text-wrap: balance;
   }
 }
+
+a {
+  color: skyblue;
+}
+
+a:hover {
+  color: blue;
+}
