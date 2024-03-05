@@ -1,5 +1,3 @@
-// localhost:3000/hello ==> localhost:3000/docs/hello
-// a.com/hello
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
